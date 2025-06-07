@@ -1,0 +1,28 @@
+---
+- name: Launch Ubuntu EC2 Instance
+  hosts: localhost
+  connection: localhost
+  gather_facts: no
+
+  vars_files:
+    - vars.yml # Ensure this path is correct and vars.yml has correct content
+
+  tasks:
+    - name: Launch EC2 Instance
+      amazon.aws.ec2_instance:
+        name: "{{ instance_name }}"
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image_id }}"
+        region: "{{ region }}"
+        wait: yes
+        count: 1
+        security_group: "{{ security_group }}"
+        tags:
+          Environment: Dev
+      register: ec2
+
+    - name: Print Public IP address
+      debug:
+        # Changed 'ec2.instance[0]' to 'ec2.instances[0]'
+        msg: "Public IP: {{ ec2.instances[0].public_ip_address }}"

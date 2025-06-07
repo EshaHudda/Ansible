@@ -1,0 +1,6 @@
+region: ap-south-1
+instance_name: ubuntu-ansible-instance
+instance_type: t2.micro
+image_id: ami-0f535a71b34f2d44a # <<< Changed from ami_id to image_id
+key_name: Ansible
+security_group: launch-wizard-2

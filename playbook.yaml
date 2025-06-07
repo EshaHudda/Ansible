@@ -1,0 +1,9 @@
+---
+- name: Test Ansible Playbook
+  hosts: localhost
+
+  tasks:
+  - name: Print Simple Message
+    debug:
+    msg: "Hello, Ansible is working!"
+ 

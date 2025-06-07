@@ -1,0 +1,28 @@
+- name: Install docker
+  become: yes
+
+  vars:
+    image_name: nginx
+    container_name:nginx_container
+    container_ports: 
+      - "8080:80" 
+  tasks:
+  - name: Install docker
+    apt:
+     name: docker.io
+     state: present
+  - name: Star NgDocker Service
+    service:
+     name: docker
+     state: started
+     enabled: yes
+  - name: Pull image_name
+    docker_image:
+      name: "{{ image_name }}"
+      source: Pull
+  - name: run container
+    docker_coontainer:
+      name: "{{ container_name }}"
+      image: "{{ image_name }}"
+      ports: "{{ container_ports }}"
+      state: started    
